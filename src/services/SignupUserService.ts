@@ -16,6 +16,7 @@ export class SignupUserService {
 
     const user = new UserModel(newUser);
     await user.save();
+
     return user;
   }
 }
