@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { CreateUserController } from "./controllers/CreateUserController";
+import { SignupUserController } from "./controllers/SignUpUserController";
 
 const routes = Router();
 
-routes.post("api/v1/user", new CreateUserController().CreateUser);
+routes.post("/api/v1/signup", new SignupUserController().SignupUser);
 
 export { routes };

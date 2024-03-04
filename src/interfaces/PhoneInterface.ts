@@ -1,4 +1,4 @@
 export interface IPhones {
-  numero: string;
+  phoneNumber: string;
   dddCode: string;
 }

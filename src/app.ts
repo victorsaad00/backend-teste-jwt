@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { Server } from "./server";
 
 mongoose
-  .connect("COONECTION STRING")
+  .connect("mongodb://127.0.0.1:27017/backenddgo")
   .then(() => {
     console.log("Database connection stablished.");
     Server();
