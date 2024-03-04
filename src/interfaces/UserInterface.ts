@@ -1,7 +1,5 @@
 import { IPhones } from "./PhoneInterface";
-import { Document } from "mongoose";
-
-export interface IUser extends Document {
+export interface IUser {
   nome: string;
   email: string;
   senha: string;
