@@ -1,13 +1,14 @@
 import { IPhones } from "./PhoneInterface";
 export interface IUser {
+  _id: string;
   name: string;
   email: string;
   password: string;
   phones: IPhones[];
-  creation_date: Date;
-  last_login: Date;
-  updated_at?: Date;
-  token?: string;
+  creationDate: Date;
+  lastLogin: Date;
+  updatedAt?: Date;
+  token: string;
 }
 
 // MODELO BASE
