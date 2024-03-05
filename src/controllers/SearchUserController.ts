@@ -1,26 +1,20 @@
 import { Request, Response } from "express";
 import { SearchUserService } from "../services/SearchUserService";
-import { v4 as uuidv4 } from "uuid";
-import { hash } from "bcryptjs";
-import { sign } from "jsonwebtoken";
-import { UserModel } from "../models/UserModel";
 
 export class SearchUserController {
   async SearchUser(request: Request, response: Response) {
-    const {email} request.body
-    const user = await UserModel.findOne({ email: email });
+    const userId = request.params.id;
+    const userTokenId = request.userTokenId;
 
-    if (!user) {
-      return new Error("Usuário e/ou senha inválidos.");
+    const searchUserService = new SearchUserService();
+    const authenticatedUser = await searchUserService.SearchUserService(
+      userId,
+      userTokenId
+    );
+
+    if (authenticatedUser instanceof Error) {
+      return response.status(401).json(authenticatedUser.message);
     }
-
-    const validatePassword = await compare(password, user.password);
-
-    if (!validatePassword) {
-      return new Error("Usuário e/ou senha inválidos.");
-    }
-
-    const { _id, creationDate, updatedAt, lastLogin, token } = user;
-    return { _id, creationDate, updatedAt, lastLogin, token };
+    return response.json(authenticatedUser);
   }
 }

@@ -9,7 +9,7 @@ const routes = Router();
 routes.post("/api/v1/signup", new SignupUserController().SignupUser);
 routes.post("/api/v1/signin", new SigninUserController().SigninUser);
 routes.get(
-  "/api/v1/searchUser",
+  "/api/v1/searchuser/:id",
   AuthenticationMiddleware,
   new SearchUserController().SearchUser
 );

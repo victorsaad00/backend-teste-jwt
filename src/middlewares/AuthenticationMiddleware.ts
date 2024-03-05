@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { TokenExpiredError, verify } from "jsonwebtoken";
 
 type TokenPayload = {
   id: string;
@@ -16,22 +16,23 @@ export const AuthenticationMiddleware = (
 
   if (!authorization) {
     return response.status(401).json({
-      error: "Não autorizado.",
+      error: "Não autorizado 1.",
     });
   }
 
-  console.log(authorization);
   const [, token] = authorization.split(" ");
 
   try {
     const verifyToken = verify(token, "secret"); //TODO: Alterar no .env
-    console.log(verifyToken);
 
     const { id } = verifyToken as TokenPayload;
 
-    request.userId = id;
+    request.userTokenId = id;
     nextFunction();
   } catch (error) {
-    return response.status(401).json({ error: "Não autorizado." });
+    if (error instanceof TokenExpiredError) {
+      return response.status(401).json({ error: "Sessão inválida." });
+    }
+    return response.status(401).json({ error: "Não autorizado 2." });
   }
 };
