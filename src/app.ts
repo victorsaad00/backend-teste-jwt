@@ -1,13 +1,9 @@
-// fazer conexão com o banco
-import mongoose from "mongoose";
-import { Server } from "./server";
+import express from "express";
+import { routes } from "./routes";
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/backenddgo") //TODO: Verificar como fazer pelo .env
-  .then(() => {
-    console.log("Database connection stablished.");
-    Server();
-  })
-  .catch((error) => {
-    console.log(`Error at database connection: ${error}`);
-  }); //
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+
+export { app };
