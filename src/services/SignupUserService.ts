@@ -13,9 +13,9 @@ export class SignupUserService {
         return new Error("Email não está no formato correto.");
       }
 
-      const userExists = await UserModel.find({ email: email });
+      const validadeEmail = await UserModel.find({ email: email });
 
-      if (userExists.length > 0) {
+      if (validadeEmail.length > 0) {
         return new Error("Email já existente.");
       }
 
