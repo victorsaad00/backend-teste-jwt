@@ -4,7 +4,11 @@ import { SearchUserService } from "../services/SearchUserService";
 export class SearchUserController {
   async SearchUser(request: Request, response: Response) {
     const userId = request.params.id;
-    const userTokenId = request.userTokenId;
+    const userTokenId: string = request.body.userTokenId;
+
+    if (!userTokenId) {
+      return response.status(401).json({ message: "Não autorizado." });
+    }
 
     const searchUserService = new SearchUserService();
     const authenticatedUser = await searchUserService.SearchUserService(

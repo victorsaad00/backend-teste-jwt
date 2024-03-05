@@ -27,7 +27,7 @@ export const AuthenticationMiddleware = (
 
     const { id } = verifyToken as TokenPayload;
 
-    request.userTokenId = id;
+    request.body.userTokenId = id;
     nextFunction();
   } catch (error) {
     if (error instanceof TokenExpiredError) {

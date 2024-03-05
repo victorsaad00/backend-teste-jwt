@@ -1,25 +1,50 @@
 import { compare } from "bcryptjs";
-import { UserModel } from "../models/UserModel";
+import type { UserModel } from "../models/UserModel";
 import { ISigninUser } from "../interfaces/SigninUserInterface";
 
+type args = {
+  email: string;
+  password: string;
+};
+
+type dependencies = {
+  UserModel: typeof UserModel;
+  compare: typeof compare;
+};
+
+type result = {
+  error: boolean;
+  data: any;
+};
+
 export class SigninUserService {
-  async AuthenticateUser(
-    email: string,
-    password: string
-  ): Promise<Error | ISigninUser> {
-    const user = await UserModel.findOne({ email: email });
+  async AuthenticateUser(args: args, deps: dependencies): Promise<result> {
+    const user = await deps.UserModel.findOne({ email: args.email });
 
     if (!user) {
-      return new Error("Usuário e/ou senha inválidos.");
+      const result = {
+        error: true,
+        data: { message: "Usuário e/ou senha inválidos." },
+      };
+      return result;
     }
 
-    const validatePassword = await compare(password, user.password);
+    const validatePassword = await deps.compare(args.password, user.password);
 
     if (!validatePassword) {
-      return new Error("Usuário e/ou senha inválidos.");
+      const result = {
+        error: true,
+        data: { message: "Usuário e/ou senha inválidos." },
+      };
+      return result;
     }
 
     const { _id, creationDate, updatedAt, lastLogin, token } = user;
-    return { _id, creationDate, updatedAt, lastLogin, token };
+
+    const result = {
+      error: false,
+      data: { _id, creationDate, updatedAt, lastLogin, token },
+    };
+    return result;
   }
 }
