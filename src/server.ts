@@ -3,7 +3,7 @@ import { routes } from "./routes";
 
 export const Server = () => {
   const app = express();
-  const port = 3000; // TODO: Colocar no .env
+  const port = 3000;
 
   app.use(express.json());
   app.use(routes);

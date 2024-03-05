@@ -23,7 +23,7 @@ export const AuthenticationMiddleware = (
   const [, token] = authorization.split(" ");
 
   try {
-    const verifyToken = verify(token, "secret"); //TODO: Alterar no .env
+    const verifyToken = verify(token, "secret"); //TODO: Verificar como fazer pelo .env
 
     const { id } = verifyToken as TokenPayload;
 
