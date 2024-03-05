@@ -1,12 +1,13 @@
-import { compare } from "bcryptjs";
+import { Request, Response } from "express";
+import { SearchUserService } from "../services/SearchUserService";
+import { v4 as uuidv4 } from "uuid";
+import { hash } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 import { UserModel } from "../models/UserModel";
-import { ISigninUser } from "../interfaces/SigninUserInterface";
 
-export class SigninUserService {
-  async AuthenticateUser(
-    email: string,
-    password: string
-  ): Promise<Error | ISigninUser> {
+export class SearchUserController {
+  async SearchUser(request: Request, response: Response) {
+    const {email} request.body
     const user = await UserModel.findOne({ email: email });
 
     if (!user) {

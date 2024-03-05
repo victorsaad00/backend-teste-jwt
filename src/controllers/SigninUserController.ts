@@ -6,7 +6,10 @@ export class SigninUserController {
     const { email, password } = request.body;
 
     const signInService = new SigninUserService();
-    const authenticatedUser = signInService.AuthenticateUser(email, password);
+    const authenticatedUser = await signInService.AuthenticateUser(
+      email,
+      password
+    );
 
     if (authenticatedUser instanceof Error) {
       return response.status(401).json(authenticatedUser.message);

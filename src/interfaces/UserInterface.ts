@@ -7,7 +7,7 @@ export interface IUser {
   phones: IPhones[];
   creationDate: Date;
   lastLogin: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
   token: string;
 }
 

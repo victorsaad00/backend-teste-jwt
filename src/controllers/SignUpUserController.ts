@@ -22,6 +22,7 @@ export class SignupUserController {
       phones,
       creationDate: newDate,
       lastLogin: newDate,
+      updatedAt: newDate,
       token: token,
     });
 
