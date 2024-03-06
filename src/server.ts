@@ -1,9 +1,12 @@
 // fazer conexão com o banco
 import mongoose from "mongoose";
 import { app } from "./app";
-const port = 3000;
+import dotenv from "dotenv";
+
+dotenv.config();
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/backenddgo") //TODO: Verificar como fazer pelo .env
+  .connect(process.env.DATABASE_URL ?? "")
   .then(() => {
     console.log("Database connection stablished.");
   })
@@ -11,4 +14,4 @@ mongoose
     console.log(`Error at database connection: ${error}`);
   }); //
 
-app.listen(port, () => console.log("server is running..."));
+app.listen(3000, () => console.log("server is running..."));

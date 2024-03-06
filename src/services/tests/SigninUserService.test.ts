@@ -1,4 +1,3 @@
-import { compare, hash } from "bcryptjs";
 import { UserModel } from "../../models/UserModel";
 import { SigninUserService } from "../SigninUserService";
 

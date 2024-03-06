@@ -23,7 +23,7 @@ export const AuthenticationMiddleware = (
   const [, token] = authorization.split(" ");
 
   try {
-    const verifyToken = verify(token, "secret"); //TODO: Verificar como fazer pelo .env
+    const verifyToken = verify(token, process.env.JWT_SECRET as string);
 
     const { id } = verifyToken as TokenPayload;
 
@@ -33,6 +33,7 @@ export const AuthenticationMiddleware = (
     if (error instanceof TokenExpiredError) {
       return response.status(401).json({ error: "Sessão inválida." });
     }
+
     return response.status(401).json({ error: "Não autorizado 2." });
   }
 };

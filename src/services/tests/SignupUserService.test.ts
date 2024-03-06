@@ -25,7 +25,7 @@ describe("Signup User service:", () => {
     const result = await signupService.SignupUser(mockedUser, { UserModel });
 
     expect(result.error).toBeTruthy();
-    expect(result.data.message).toBe("Email já existente.");
+    expect(result?.message).toBe("Email já existente.");
   });
 
   it("Should be able to create a new user.", async () => {

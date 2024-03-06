@@ -10,7 +10,7 @@ export class SignupUserService {
     newUser: IUser,
     deps: IServiceDependencies
   ): Promise<IServiceUserResults> {
-    const { _id, email, creationDate, lastLogin, updatedAt } = newUser;
+    const { _id, email, creationDate, lastLogin, updatedAt, token } = newUser;
 
     const validadeEmail = await deps.UserModel.find({ email: email });
 
@@ -28,7 +28,7 @@ export class SignupUserService {
 
     return {
       error: false,
-      data: { _id, email, creationDate, lastLogin, updatedAt },
+      data: { _id, email, creationDate, lastLogin, updatedAt, token },
     };
   }
 }

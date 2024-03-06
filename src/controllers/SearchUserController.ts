@@ -25,6 +25,6 @@ export class SearchUserController {
     if (authenticatedUser.error) {
       return response.status(401).json(authenticatedUser.message);
     }
-    return response.json(authenticatedUser);
+    return response.json(authenticatedUser.data);
   }
 }

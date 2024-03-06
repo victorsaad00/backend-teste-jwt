@@ -11,7 +11,9 @@ export class SignupUserController {
 
     const newId = uuidv4();
     const encrypt = await hash(password, 8);
-    const token = sign({ id: newId }, "secret", { expiresIn: "30m" }); //TODO: Verificar como fazer pelo .env
+    const token = sign({ id: newId }, process.env.JWT_SECRET as string, {
+      expiresIn: "30m",
+    });
     const newDate = new Date();
     const userService = new SignupUserService();
 
