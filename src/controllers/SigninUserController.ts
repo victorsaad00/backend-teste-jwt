@@ -18,7 +18,7 @@ export class SigninUserController {
     );
 
     if (authenticatedUser.error) {
-      return response.status(401).json(authenticatedUser.data.message);
+      return response.status(401).json(authenticatedUser?.message);
     }
 
     return response.json(authenticatedUser.data);

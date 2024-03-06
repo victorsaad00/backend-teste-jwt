@@ -33,7 +33,7 @@ export class SignupUserController {
     );
 
     if (result.error) {
-      return response.status(400).json(result.data.message);
+      return response.status(400).json(result?.message);
     }
 
     return response.json(result.data);

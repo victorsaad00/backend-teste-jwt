@@ -1,27 +1,25 @@
+import {
+  IServiceUserResults,
+  IServiceDependencies,
+} from "../interfaces/ServiceInterfaces";
 import { IUser } from "../interfaces/UserInterface";
 import { UserModel } from "../models/UserModel";
 
-type dependencies = {
-  UserModel: typeof UserModel;
-};
-
-type result = {
-  error: boolean;
-  data: any;
-};
-
 export class SignupUserService {
-  async SignupUser(newUser: IUser, deps: dependencies): Promise<result> {
+  async SignupUser(
+    newUser: IUser,
+    deps: IServiceDependencies
+  ): Promise<IServiceUserResults> {
     const { _id, email, creationDate, lastLogin, updatedAt } = newUser;
 
     const validadeEmail = await deps.UserModel.find({ email: email });
 
     if (validadeEmail.length > 0) {
-      const result = {
+      return {
         error: true,
-        data: { message: "Email já existente." },
+        data: null,
+        message: "Email já existente.",
       };
-      return result;
     }
 
     const user = new UserModel(newUser);
