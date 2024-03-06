@@ -23,7 +23,7 @@ describe("Sigin user service test", () => {
     });
 
     expect(result.error).toBeTruthy();
-    expect(result.data.message).toBe("Usuário e/ou senha inválidos.");
+    expect(result?.message).toBe("Usuário e/ou senha inválidos.");
   });
 
   it("Must throw if password is not valid.", async () => {
@@ -48,7 +48,7 @@ describe("Sigin user service test", () => {
     });
 
     expect(result.error).toBeTruthy();
-    expect(result.data.message).toBe("Usuário e/ou senha inválidos.");
+    expect(result?.message).toBe("Usuário e/ou senha inválidos.");
   });
 
   it("Must return a valid user.", async () => {
@@ -78,6 +78,7 @@ describe("Sigin user service test", () => {
     });
 
     expect(result.error).toBeFalsy();
+    expect(result.message).toBeUndefined();
     expect(result.data).toHaveProperty("_id", "mocked_id");
   });
 });
