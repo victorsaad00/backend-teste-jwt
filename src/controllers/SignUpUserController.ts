@@ -3,6 +3,7 @@ import { SignupUserService } from "../services/SignupUserService";
 import { v4 as uuidv4 } from "uuid";
 import { hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
+import { UserModel } from "../models/UserModel";
 
 export class SignupUserController {
   async SignupUser(request: Request, response: Response) {
@@ -14,22 +15,27 @@ export class SignupUserController {
     const newDate = new Date();
     const userService = new SignupUserService();
 
-    const result = await userService.SignupUser({
-      _id: newId,
-      name,
-      email,
-      password: encrypt,
-      phones,
-      creationDate: newDate,
-      lastLogin: newDate,
-      updatedAt: newDate,
-      token: token,
-    });
+    const result = await userService.SignupUser(
+      {
+        _id: newId,
+        name,
+        email,
+        password: encrypt,
+        phones,
+        creationDate: newDate,
+        lastLogin: newDate,
+        updatedAt: newDate,
+        token: token,
+      },
+      {
+        UserModel,
+      }
+    );
 
-    if (result instanceof Error) {
-      return response.status(400).json(result.message);
+    if (result.error) {
+      return response.status(400).json(result.data.message);
     }
 
-    return response.json(result);
+    return response.json(result.data);
   }
 }

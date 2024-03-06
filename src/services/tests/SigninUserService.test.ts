@@ -32,14 +32,18 @@ describe("Sigin user service test", () => {
       password: "123",
     };
 
+    const compareMock = async () =>
+      new Promise<boolean>((resolve, reject) => {
+        resolve(false);
+      });
+
     jest.spyOn(UserModel, "findOne").mockResolvedValueOnce({
-      email: "teste@gmail.com",
-      password: "wrongpassword",
+      password: "",
     });
 
     const signinService = new SigninUserService();
     const result = await signinService.AuthenticateUser(credencials, {
-      compare,
+      compare: compareMock,
       UserModel,
     });
 
@@ -48,25 +52,32 @@ describe("Sigin user service test", () => {
   });
 
   it("Must return a valid user.", async () => {
+    const date = new Date();
     const credencials = {
       email: "teste@gmail.com",
       password: "123",
     };
 
-    const encryptedPasswordMock = await hash(credencials.password, 8);
+    const compareMock = async () =>
+      new Promise<boolean>((resolve, reject) => {
+        resolve(true);
+      });
 
     jest.spyOn(UserModel, "findOne").mockResolvedValueOnce({
-      email: "teste@gmail.com",
-      password: encryptedPasswordMock,
+      _id: "mocked_id",
+      creationDate: date,
+      updatedAt: date,
+      lastLogin: date,
+      token: "token",
     });
 
     const signinService = new SigninUserService();
     const result = await signinService.AuthenticateUser(credencials, {
-      compare,
+      compare: compareMock,
       UserModel,
     });
 
     expect(result.error).toBeFalsy();
-    expect(result.data).toHaveProperty("_id");
+    expect(result.data).toHaveProperty("_id", "mocked_id");
   });
 });

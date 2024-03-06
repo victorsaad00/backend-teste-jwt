@@ -10,16 +10,3 @@ export interface IUser {
   updatedAt: Date;
   token: string;
 }
-
-// MODELO BASE
-// {
-//     "nome": "string",
-//     "email": "string",
-//     "senha": "senha",
-//     "telefones": [
-//      {
-//      "numero": "123456789",
-//      "ddd": "11"
-//      }
-//      ]
-//     }

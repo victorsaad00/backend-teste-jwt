@@ -1,6 +1,5 @@
 import { compare } from "bcryptjs";
 import type { UserModel } from "../models/UserModel";
-import { ISigninUser } from "../interfaces/SigninUserInterface";
 
 type args = {
   email: string;
