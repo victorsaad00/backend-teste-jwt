@@ -23,7 +23,7 @@ export const AuthenticationMiddleware = (
   const [, token] = authorization.split(" ");
 
   try {
-    const verifyToken = verify(token, process.env.JWT_SECRET as string);
+    const verifyToken = verify(token, `${process.env.JWT_SECRET}`);
 
     const { id } = verifyToken as TokenPayload;
 

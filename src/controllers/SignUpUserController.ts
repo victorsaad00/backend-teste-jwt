@@ -11,7 +11,7 @@ export class SignupUserController {
 
     const newId = uuidv4();
     const encrypt = await hash(password, 8);
-    const token = sign({ id: newId }, process.env.JWT_SECRET as string, {
+    const token = sign({ id: newId }, `${process.env.JWT_SECRET}`, {
       expiresIn: "30m",
     });
     const newDate = new Date();
@@ -38,6 +38,6 @@ export class SignupUserController {
       return response.status(400).json(result?.message);
     }
 
-    return response.json(result.data);
+    return response.status(200).json(result.data);
   }
 }
