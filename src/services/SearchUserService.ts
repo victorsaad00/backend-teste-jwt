@@ -25,7 +25,7 @@ export class SearchUserService {
       return {
         error: true,
         data: null,
-        message: "Não autorizado 3.",
+        message: "Não autorizado.",
       };
     }
 

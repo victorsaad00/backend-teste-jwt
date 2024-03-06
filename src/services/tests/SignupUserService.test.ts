@@ -25,6 +25,7 @@ describe("Signup User service:", () => {
     const result = await signupService.SignupUser(mockedUser, { UserModel });
 
     expect(result.error).toBeTruthy();
+    expect(result.data).toBeNull();
     expect(result?.message).toBe("Email já existente.");
   });
 
@@ -51,15 +52,18 @@ describe("Signup User service:", () => {
     const signupService = new SignupUserService();
     const result = await signupService.SignupUser(mockedUser, { UserModel });
 
-    const { _id, email, creationDate, lastLogin, updatedAt } = mockedUser;
+    const { _id, email, creationDate, lastLogin, updatedAt, token } =
+      mockedUser;
 
     expect(result.error).toBeFalsy();
+    expect(result.data).toBeTruthy(); // Verify if result.data is not null
     expect(result.data).toEqual({
       _id,
       email,
       creationDate,
       lastLogin,
       updatedAt,
+      token,
     });
   });
 });

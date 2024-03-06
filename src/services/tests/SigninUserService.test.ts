@@ -22,6 +22,7 @@ describe("Sigin user service test", () => {
     });
 
     expect(result.error).toBeTruthy();
+    expect(result.data).toBeNull();
     expect(result?.message).toBe("Usuário e/ou senha inválidos.");
   });
 
@@ -47,6 +48,7 @@ describe("Sigin user service test", () => {
     });
 
     expect(result.error).toBeTruthy();
+    expect(result.data).toBeNull();
     expect(result?.message).toBe("Usuário e/ou senha inválidos.");
   });
 
@@ -78,6 +80,7 @@ describe("Sigin user service test", () => {
 
     expect(result.error).toBeFalsy();
     expect(result.message).toBeUndefined();
+    expect(result.data).toBeTruthy(); // Verify if result.data is not null
     expect(result.data).toHaveProperty("_id", "mocked_id");
   });
 });
