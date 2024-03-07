@@ -15,7 +15,7 @@ export class SearchUserService {
       return {
         error: true,
         data: null,
-        message: "Usuário e/ou senha inválidos.",
+        message: "Usuário não encontrado.",
       };
     }
 
