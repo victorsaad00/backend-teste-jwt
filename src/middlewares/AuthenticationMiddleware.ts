@@ -16,7 +16,7 @@ export const AuthenticationMiddleware = (
 
   if (!authorization) {
     return response.status(401).json({
-      error: "Não autorizado 1.",
+      error: "Não autorizado.",
     });
   }
 
@@ -34,6 +34,6 @@ export const AuthenticationMiddleware = (
       return response.status(401).json({ error: "Sessão inválida." });
     }
 
-    return response.status(401).json({ error: "Não autorizado 2." });
+    return response.status(401).json({ error: "Não autorizado." });
   }
 };

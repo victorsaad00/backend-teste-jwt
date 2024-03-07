@@ -72,6 +72,14 @@ describe("Sigin user service test", () => {
       token: "token",
     });
 
+    jest.spyOn(UserModel, "findOneAndUpdate").mockResolvedValueOnce({
+      _id: "mocked_id",
+      creationDate: date,
+      updatedAt: date,
+      lastLogin: date,
+      token: "newToken",
+    });
+
     const signinService = new SigninUserService();
     const result = await signinService.AuthenticateUser(credencials, {
       compare: compareMock,
@@ -82,5 +90,6 @@ describe("Sigin user service test", () => {
     expect(result.message).toBeUndefined();
     expect(result.data).toBeTruthy(); // Verify if result.data is not null
     expect(result.data).toHaveProperty("_id", "mocked_id");
+    expect(result.data).toHaveProperty("token", "newToken");
   });
 });
