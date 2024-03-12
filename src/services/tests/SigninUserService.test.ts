@@ -77,7 +77,7 @@ describe("Sigin user service test", () => {
       creationDate: date,
       updatedAt: date,
       lastLogin: date,
-      token: "newToken",
+      token: "token",
     });
 
     const signinService = new SigninUserService();
@@ -90,6 +90,6 @@ describe("Sigin user service test", () => {
     expect(result.message).toBeUndefined();
     expect(result.data).toBeTruthy(); // Verify if result.data is not null
     expect(result.data).toHaveProperty("_id", "mocked_id");
-    expect(result.data).toHaveProperty("token", "newToken");
+    expect(result.data).toHaveProperty("token", "token");
   });
 });

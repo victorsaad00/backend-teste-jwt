@@ -1,4 +1,3 @@
-import { sign } from "jsonwebtoken";
 import {
   ISigninServiceArgs,
   ISigninServiceDependencies,
@@ -30,33 +29,7 @@ export class SigninUserService {
       };
     }
 
-    // BREAKING THE LAW
-    const now = new Date();
-    const newToken = sign({ id: user._id }, `${process.env.JWT_SECRET}`, {
-      expiresIn: "30m",
-    });
-
-    const updateUser = await deps.UserModel.findOneAndUpdate(
-      { email: args.email },
-      {
-        $set: {
-          updatedAt: now,
-          lastLogin: now,
-          token: newToken,
-        },
-      },
-      { new: true }
-    );
-
-    if (!updateUser) {
-      return {
-        error: true,
-        data: null,
-        message: "Usuário e/ou senha inválidos.",
-      };
-    }
-
-    const { _id, creationDate, updatedAt, lastLogin, token } = updateUser;
+    const { _id, creationDate, updatedAt, lastLogin, token } = user;
 
     return {
       error: false,
